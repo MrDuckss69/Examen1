@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primer analizador web</title>
+    <style>
+        table, th, td {
+            border: 1px solid rgb(97, 96, 96);
+            border-collapse: collapse;
+            padding: 15px;
+        }
+        th {
+            background-color: #65d676;
+            text-align: center;
+        }
+        td { vertical-align: top; }
+    </style>
+</head>
+<body>
+    <h1>Mi primer analizador léxico</h1>
+    <form method="post">
+        <textarea name="text" rows="10" cols="50">{{ text }}</textarea>
+        <input type="submit" value="Analizar">
+    </form>
+    {% if palabras or signos or numeros or especiales %}
+        <h2>Resultados</h2>
+        <table>
+            <tr>
+                <th>Palabras</th>
+                <th>Signos</th>
+                <th>Números</th>
+                <th>Especiales</th>
+            </tr>
+            <tr>
+                <td>
+                    {% for palabra in palabras %}
+                        {{ palabra }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for signo in signos %}
+                        {{ signo }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for numero in numeros %}
+                        {{ numero }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for especial in especiales %}
+                        {{ especial }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+</body>
+</html>
