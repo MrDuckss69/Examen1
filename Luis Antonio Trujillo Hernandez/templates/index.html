@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primer analizador web</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', Arial, verdana;  /* Tipo de letra mantenido */
+            background-image: url('https://st3.depositphotos.com/1010652/14828/v/1600/depositphotos_148283481-stock-illustration-video-game-seamless-background.jpg');  /* Color de fondo mantenido */
+        }
+        .container {
+            text-align: center;
+            border: 1px solid #00796b;  /* Borde externo */
+            padding: 20px;  /* Espaciado interno */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);  /* Sombra para profundidad */
+            border-radius: 8px;  /* Bordes redondeados */
+            background-color: white; /* Fondo blanco para el contenedor */
+        }
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+            border: 1px solid #00796b;  /* Borde */
+            padding: 10px;  /* Espaciado interno */
+            box-sizing: border-box;
+            resize: both; /* Permite redimensionar el textarea */
+            border-radius: 4px;  /* Bordes redondeados para el textarea */
+        }
+        input[type="submit"], input[type="button"] {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #00796b;
+            border-radius: 4px;  /* Bordes redondeados para los botones */
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);  /* Sombra para botones */
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            margin-top: 20px;
+            font-family: 'Courier', verdana, sans-serif;  /* Tipo de letra cambiado */
+            text-align: left; /* Alineación cambiada a la izquierda */
+        }
+        .tables-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .tokens-textarea, .line-info-table {
+            width: 48%;
+            height: 150px;
+            border: 1px solid #00796b;  /* Borde igual que textarea */
+            border-radius: 4px;  /* Bordes redondeados */
+        }
+        .line-info-table {
+            padding: 10px;  /* Espaciado interno */
+            box-sizing: border-box;
+            background-color: white;  /* Fondo blanco para parecerse al textarea */
+            overflow-y: auto;  /* Scroll si el contenido es largo */
+        }
+        .line-info-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .line-info-table th, .line-info-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left; 
+        }
+        .line-info-table th {
+            background-color: #f2f2f2;
+            text-align: left; 
+        }
+        dt {
+            font-weight: bold;
+            color: #00796b;  /* Color cambiado */
+        }
+        dd {
+            margin-bottom: 15px; /* Espaciado entre definiciones */
+            margin-left: 20px; /* Sangría para las definiciones */
+        }
+    </style>
+    <script>
+        function clearTextarea() {
+            // Limpiar el textarea
+            document.querySelector('textarea[name="text"]').value = '';
+
+            // Eliminar el contenido de la tabla
+            const tableBody = document.querySelector('.line-info-table table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = '';
+            }
+
+            // Limpiar el área de tokens
+            const tokensTextarea = document.querySelector('.tokens-textarea');
+            if (tokensTextarea) {
+                tokensTextarea.value = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mi primer analizador léxico</h1>
+        <form method="post">
+            <textarea name="text" rows="10" cols="50"></textarea>
+            <input type="submit" value="Analizar">
+            <input type="button" value="Borrar" onclick="clearTextarea()">
+        </form>
+        <br><br>
+        <h2>Tokens y Tipos</h2>
+        <div class="tables-container">
+            {% if tokens %}
+            <textarea class="tokens-textarea" readonly style="width: 30%; height: 150px; text-align: left; line-height: 0.3; resize: both;">
+                    {% for token in tokens %}
+                        {{ token }}
+                    {% endfor %}
+                </textarea>
+            {% endif %}
+            {% if line_info %}
+            <div class="line-info-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Línea</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line, tipo in line_info %}
+                        <tr>
+                            <td>{{ line }}</td>
+                            <td>{{ tipo }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
