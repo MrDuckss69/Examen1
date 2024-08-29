@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primer analizador web</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', Arial, verdana;
+            background-image: url('https://catwithmonocle.com/wp-content/uploads/2020/05/ff7r-midgar-1920x1080-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: red;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid red;  
+            padding: 20px;
+            box-shadow: 0 0 10px black;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+        }
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+            color: red;
+            background-color: black;
+            border: 1px solid red;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: both;
+            border-radius: 4px;
+        }
+        input[type="submit"], input[type="button"] {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: black;
+            color: red;
+            border: 1px solid red;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 0 5px black;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: red;
+            color: black;
+        }
+        h1, h2 {
+            color: red;
+        }
+        h2 {
+            margin-top: 20px;
+            font-family: 'Courier', verdana, sans-serif;
+            text-align: left;
+        }
+        .tables-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .tokens-textarea, .line-info-table {
+            width: 48%;
+            height: 150px;
+            border: 1px solid red;
+            border-radius: 4px;
+        }
+        .line-info-table {
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: black;
+            overflow-y: auto;
+        }
+        .line-info-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .line-info-table th, .line-info-table td {
+            border: 1px solid red;
+            padding: 8px;
+            text-align: left;
+        }
+        .line-info-table th {
+            background-color: black;
+        }
+    </style>
+    <script>
+        function clearTextarea() {
+            document.querySelector('textarea[name="text"]').value = '';
+            const tableBody = document.querySelector('.line-info-table table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = '';
+            }
+            const tokensTextarea = document.querySelector('.tokens-textarea');
+            if (tokensTextarea) {
+                tokensTextarea.value = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mi primer analizador léxico</h1>
+        <form method="post">
+            <textarea name="text" rows="10" cols="50"></textarea>
+            <input type="submit" value="Analizar">
+            <input type="button" value="Borrar" onclick="clearTextarea()">
+        </form>
+        <br><br>
+        <h2>Tokens y Tipos</h2>
+        <div class="tables-container">
+            {% if tokens %}
+            <textarea class="tokens-textarea" readonly style="width: 30%; height: 150px; text-align: left; line-height: 0.3;">
+                    {% for token in tokens %}
+                        {{ token }}
+                    {% endfor %}
+                </textarea>
+            {% endif %}
+            {% if line_info %}
+            <div class="line-info-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Línea</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line, tipo in line_info %}
+                        <tr>
+                            <td>{{ line }}</td>
+                            <td>{{ tipo }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
