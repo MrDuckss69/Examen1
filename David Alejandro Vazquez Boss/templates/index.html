@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi primer analizador web</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', Arial, verdana;
+            background-image: url('https://cdn.donmai.us/original/fb/29/__amatsuka_uto_voice_ore_drawn_by_deyui__fb293805edc8322f4a4b1add464ec2fc.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00796b;  
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+        }
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+            border: 1px solid #00796b;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: both;
+            border-radius: 4px;
+        }
+        input[type="submit"], input[type="button"] {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #4b5aa4;
+            color: rgb(255, 255, 255);
+            border: 1px solid #00796b;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        h1, h2 {
+            color: #ffffff;
+        }
+        h2 {
+            margin-top: 20px;
+            font-family: 'Courier', verdana, sans-serif;
+            text-align: left;
+        }
+        .tables-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .tokens-textarea, .line-info-table {
+            width: 48%;
+            height: 150px;
+            border: 1px solid #00796b;
+            border-radius: 4px;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .tokens-textarea {
+            background-color: rgb(255, 255, 255); /* Cambia el color de fondo aquí */
+            color: #000000; /* Cambia el color del texto aquí si es necesario */
+        }
+        .line-info-table {
+            background-color: rgba(63, 48, 148, 0.8);
+        }
+        .line-info-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .line-info-table th, .line-info-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .line-info-table th {
+            background-color: #212889;
+        }
+    </style>
+    <script>
+        function clearTextarea() {
+            document.querySelector('textarea[name="text"]').value = ''; // Limpia el primer textarea
+            document.querySelector('.tokens-textarea').value = ''; // Limpia la segunda textarea
+            const tableBody = document.querySelector('.line-info-table table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = ''; // Limpia el contenido de la tabla
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mi primer analizador léxico</h1>
+        <form method="post">
+            <textarea name="text" rows="10" cols="50"></textarea>
+            <input type="submit" value="Analizar">
+            <input type="button" value="Borrar" onclick="clearTextarea()">
+        </form>
+        <br><br>
+        <h2>Tokens y Tipos</h2>
+        <div class="tables-container">
+            <textarea class="tokens-textarea" readonly style="width: 30%; height: 150px; text-align: left; line-height: 0.4;">
+                {% if tokens %}
+                    {% for token in tokens %}
+                        {{ token }}
+                    {% endfor %}
+                {% endif %}
+            </textarea>
+            <div class="line-info-table">
+                {% if line_info %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Línea</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line, tipo in line_info %}
+                        <tr>
+                            <td>{{ line }}</td>
+                            <td>{{ tipo }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
