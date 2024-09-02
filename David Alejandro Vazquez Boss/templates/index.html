@@ -28,29 +28,30 @@
             width: 80%;
             max-width: 600px;
         }
-        textarea {
+        textarea { /* Contorno */
             width: 100%;
-            margin-bottom: 10px;
-            text-align: left;
-            border: 1px solid #00796b;
-            padding: 10px;
+            margin-bottom: 10px; /* margen cuadro fondo */
+            text-align: left; 
+            border: 1px solid #00796b; /* lineas del cuadro tamaño y color */
+            padding: 10px; /* tamaño cuadro */
             box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.155);
             resize: both;
-            border-radius: 4px;
+            border-radius: 4px; /* bordes */
         }
         input[type="submit"], input[type="button"] {
             display: inline-block;
             margin: 0 10px;
             padding: 10px 20px;
-            background-color: #4b5aa4;
-            color: rgb(255, 255, 255);
-            border: 1px solid #00796b;
+            background-color: #4b5aa4; /* color botones */
+            color: rgb(255, 255, 255); /* color letra de los botones */
+            border: 1px solid #00796b; /* lineas del cuadro tamaño y color */
             border-radius: 4px;
             cursor: pointer;
             box-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
         input[type="submit"]:hover, input[type="button"]:hover {
-            background-color: #45a049;
+            background-color: #5745a0;
         }
         h1, h2 {
             color: #ffffff;
@@ -73,11 +74,11 @@
             background-color: rgba(0, 0, 0, 0.6);
         }
         .tokens-textarea {
-            background-color: rgb(255, 255, 255); /* Cambia el color de fondo aquí */
+            background-color: rgba(255, 255, 255, 0.155); /* Cambia el color de fondo aquí */
             color: #000000; /* Cambia el color del texto aquí si es necesario */
         }
         .line-info-table {
-            background-color: rgba(63, 48, 148, 0.8);
+            background-color:  rgba(255, 255, 255, 0.155);
         }
         .line-info-table table {
             width: 100%;
@@ -89,13 +90,13 @@
             text-align: left;
         }
         .line-info-table th {
-            background-color: #212889;
+            background-color: #21288950;
         }
     </style>
     <script>
         function clearTextarea() {
-            document.querySelector('textarea[name="text"]').value = ''; // Limpia el primer textarea
-            document.querySelector('.tokens-textarea').value = ''; // Limpia la segunda textarea
+            document.querySelector('textarea[name="text"]').value = ' '; // Limpia el primer textarea
+            document.querySelector('.tokens-textarea').value = ' '; // Limpia la segunda textarea
             const tableBody = document.querySelector('.line-info-table table tbody');
             if (tableBody) {
                 tableBody.innerHTML = ''; // Limpia el contenido de la tabla

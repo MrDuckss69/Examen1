@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import re
+
 app = Flask(__name__)
 def lexico(text):
     tokens = re.findall(r'\b\w+\b', text)
